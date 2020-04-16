@@ -11,7 +11,7 @@ const userRoutes = require('./routes/userRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const User = require('./models/User');
-const privates = require('./config/privates');
+// const privates = require('./config/privates');
 
 // Uncomment to seed products to the database
 // const seedProducts = require('./seeds/products');
@@ -21,14 +21,17 @@ const publicPath = path.join(__dirname, 'client', 'public');
 const port = process.env.PORT || 5000;
 
 const app = express();
-mongoose.connect(privates.mongoDBURI);
+mongoose.connect("mongodb://mongo:27017/expressmongo");
+
+const seedProducts = require('./seeds/products.js');
+seedProducts();
 
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 app.use(express.static(publicPath));
 app.use(urlencodedParser);
 app.use(expressSession({
-  secret: privates.sessionSecret,
+  secret: "asdfasdfsdfasfsdfi9uefnnf",
   resave: false,
   saveUninitialized: false
 }));
